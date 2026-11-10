@@ -1,6 +1,6 @@
 import cors from "cors";
 import express, { type ErrorRequestHandler } from "express";
-import { findAllPizzas } from "./pizzas.js";
+import { findAllPizzas, findPizzaById } from "./pizzas.js";
 
 const PORT = 8080;
 
@@ -16,6 +16,22 @@ app.get("/api/pizzas", (request, response) => {
 });
 
 // 👉 Étape 1 : GET /api/pizzas/:id
+app.get("/api/pizzas/:id", (request, response) => {
+  const id = Number(request.params.id)
+  if(!Number.isInteger(id)){
+    return response.status(400).json({
+      error: " not integer"
+    })
+
+  }
+  const pizza = findPizzaById(id)
+  if(pizza === undefined){
+    return response.status(404).json({
+      error: "not found"
+    })
+  }
+  return response.json(pizza)
+})
 // 👉 Étape 2 : POST, PUT et DELETE sur /api/pizzas
 // 👉 Étape 4 : POST /api/orders
 
