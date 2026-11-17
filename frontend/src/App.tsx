@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getJson } from "./api.ts";
 import type { Pizza } from "./types.ts";
+import PizzaCard from "./PizzaCard.tsx";
 
 export default function App() {
   const [pizzas, setPizzas] = useState<Pizza[]>([]);
@@ -33,12 +34,7 @@ export default function App() {
 
         <ul className="pizzas">
           {pizzas.map((pizza) => (
-            <li key={pizza.id} className="pizza">
-              <span className="pizza-image">{pizza.image}</span>
-              <h2>{pizza.name}</h2>
-              <p>{pizza.description}</p>
-              <strong>{pizza.price.toFixed(2)} €</strong>
-            </li>
+            <PizzaCard key={pizza.id} pizza={pizza} />
           ))}
         </ul>
       </main>
