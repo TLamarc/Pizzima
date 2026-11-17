@@ -4,16 +4,7 @@ import type { Pizza } from "./types.ts";
 import PizzaCard from "./PizzaCard.tsx";
 
 export default function App() {
-  const [pizzas, setPizzas] = useState<Pizza[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getJson<Pizza[]>("/api/pizzas")
-      .then(setPizzas)
-      .catch((cause: unknown) => setError(String(cause)))
-      .finally(() => setLoading(false));
-  }, []);
+  const { pizzas, loading, error } = usePizzas();
 
   return (
     <div className="app">
